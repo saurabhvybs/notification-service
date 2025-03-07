@@ -5,11 +5,14 @@
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "strict": true,
+    "strictPropertyInitialization": true,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./",
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*"],
+  "include": ["Notification_server/**/*", "Kafka_workers/**/*", "Kafka_broker/**/*", "Redis/**/*", "PostgreSQL/**/*"],
   "exclude": ["node_modules", "dist"]
 }
