@@ -51,6 +51,38 @@ services:
     networks:
       - app_network
 
+  ### 🔹 Notification Service
+  notification_service:
+    build:
+      context: .
+      dockerfile: Notification_server/Dockerfile
+    container_name: notification_service
+    restart: always
+    depends_on:
+      - kafka_broker
+      - postgres_db
+      - redis
+    environment:
+      KAFKA_BROKER_URL: kafka_broker:9092
+      DATABASE_URL: postgres://admin:secret@postgres_db:5432/notifications_db
+      REDIS_HOST: redis
+    networks:
+      - app_network
+
+  ### 🔹 Kafka Workers
+  kafka_workers:
+    build:
+      context: .
+      dockerfile: Kafka_workers/Dockerfile
+    container_name: kafka_workers
+    restart: always
+    depends_on:
+      - kafka_broker
+    environment:
+      KAFKA_BROKER_URL: kafka_broker:9092
+    networks:
+      - app_network
+
 volumes:
   postgres_data:
   kafka_data:
